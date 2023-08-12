@@ -7,8 +7,19 @@ private:
 	int num = 0;
 
 public:
-	void set_num(int* number) {
-		num = *number;
+
+	int startNumber(int number) {
+		num = number;
+		return num;
+	}
+
+	int changeNum(std::string action) {
+		action == "+" ? this->num = ++num : this->num = --num;
+		return num;
+	}
+	
+	void set_num(int number) {
+		this->num = num;
 	}
 
 	int get_num() {
@@ -32,10 +43,11 @@ int main(int argc, char** argv) {
 
 		std::cout << "Введите начальное значение счетчика: ";
 		std::cin >> number;
-		count.set_num(&number);
+		count.startNumber(number);
 
-	} else if (startAnswer == "no") {
+	} else if (startAnswer == "no") {	
 		number = 0;
+		count.startNumber(number);
 
 	} else {
 		std::cout << "Неверный ввод. Попробуйте снова." << '\n';
@@ -47,13 +59,9 @@ int main(int argc, char** argv) {
 			
 		std::cin >> action;
 
-		if (action == "+") {
-			number = ++number;
-			count.set_num(&number);
-
-		} else if (action == "-") {
-			number = --number;
-			count.set_num(&number);
+		if (action == "+" || action == "-") {
+			number = count.changeNum(action);
+			count.set_num(number);
 
 		} else if (action == "=") {
 			std::cout << count.get_num() << '\n';
