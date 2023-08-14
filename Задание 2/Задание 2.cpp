@@ -2,24 +2,23 @@
 #include <string>
 
 
-class Counter {
+
+class Counter 
+{
 private:
-	int num = 0;
+	int num;
 
 public:
-
-	int startNumber(int number) {
-		num = number;
-		return num;
+	Counter() {
+	num = 0;
 	}
 
-	int changeNum(std::string action) {
-		action == "+" ? this->num = ++num : this->num = --num;
-		return num;
-	}
-	
-	void set_num(int number) {
+	Counter(int num) {
 		this->num = num;
+	}
+
+	void changeNum(std::string action) {
+		action == "+" ? num = ++num : num = --num;
 	}
 
 	int get_num() {
@@ -32,7 +31,7 @@ int main(int argc, char** argv) {
 	setlocale(LC_ALL, "Russian");
 
 	std::string startAnswer;
-	int number = 0;
+	int num;
 	std::string action;
 	Counter count;
 
@@ -42,38 +41,40 @@ int main(int argc, char** argv) {
 	if (startAnswer == "yes" || startAnswer == "Yes" || startAnswer == "YES") {
 
 		std::cout << "Введите начальное значение счетчика: ";
-		std::cin >> number;
-		count.startNumber(number);
+		std::cin >> num;
+		count = Counter (num);
 
 	} else if (startAnswer == "no") {	
-		number = 0;
-		count.startNumber(number);
+		count = Counter();
 
-	} else {
+	}
+	else {
 		std::cout << "Неверный ввод. Попробуйте снова." << '\n';
 	}
 		
 	while (true) {
 
 		std::cout << "Введите команду '+', '-', '=' или 'x': ";
-			
+
 		std::cin >> action;
 
 		if (action == "+" || action == "-") {
-			number = count.changeNum(action);
-			count.set_num(number);
+			count.changeNum(action);
 
-		} else if (action == "=") {
+
+		}
+		else if (action == "=") {
 			std::cout << count.get_num() << '\n';
 
-		} else if (action == "x" || action == "X" || action == "х" || action == "Х") {
+		}
+		else if (action == "x" || action == "X" || action == "х" || action == "Х") {
 			std::cout << "До свидания!" << '\n';
 			break;
 
-		} else {
+		}
+		else {
 			std::cout << "Неверный ввод. Попробуйте снова." << '\n';
 		}
-
 	}
 
 	return 0;
